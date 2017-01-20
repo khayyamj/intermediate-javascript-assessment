@@ -88,34 +88,55 @@ function context3(myFn,context) {
     var newFunction = myFn.bind(context);
     return newFunction;
 }
-newFunction();
+
 
 
 // #6  ###################
 // # Constructor Function
 // Make a constructor function called taco that takes in 3 parameters: shell, meat, veggies and assigns them to identically named properties.
 
+function Taco (shell,meat,veggies) {
+    this.shell = shell;
+    this.meat = meat;
+    this.veggies = veggies;
+}
 
 
 
 // #7  ###################
 // # Implicit binding
 // Make a constructor function called burrito.  It has a property called percentLeft = 100.  It has a property called eat that is a function.  When eat is invoked it uses context to implicitly subract 25 from the percentLeft on the burrito.
-
+function Burrito() {
+    this.percentLeft = 100;
+    this.eat = function(){
+        return this.percentLeft > 0 ? this.percentLeft -= 25 : this.percentLeft = 0;
+    }
+}
 
 
 // #8  ###################
 // # Prototype 1
 // Add prototype function to the array type that doubles the value of every item in the array
 
-
+// doubler.prototype.double = function(array){
+//         for (var i = 0; i < this.array.length; i++){
+//             this.array[i] = this.array[i] * 2;
+//         }
+//     }
+// return this.array;
+// })
 
 
 // #9  ###################
 // # Prototype 2
 // Write a constructor function called chimichanga.  It has a property called percentLeft = 100.  It has a prototype function called eat.  When eat is invoked it uses context to implicitly subract 20 from the precentLeft on the chimichanga.
 
-
+function Chimichanga(){
+    this.percentLeft = 100;
+}
+Chimichanga.prototype.eat = function() {
+    return this.percentLeft -= 20;
+}
 
 
 // #10  ###################
@@ -123,7 +144,11 @@ newFunction();
 // Write a function called sentence machine.  It takes in a parameter called partOne.  It returns a function called sentenceSmasher.
 // When sentenceSmasher is invoked it should take in a parameter called partTwo and return a new string that adds partOne and partTwo together.
 
-
+function sentenceMachine(partOne) {
+    return function sentenceSmasher(partTwo) {
+        return partOne + partTwo;
+    }
+}
 
 // #11  ###################
 // # Closure 2
@@ -137,7 +162,16 @@ newFunction();
 //     ingredients: <Array of ingredients goes here>
 // }
 // ```
-
+function subway(personName) {
+    var ingredients = [];
+    return function(addIngredient) {
+        ingredients.push(addIngredient);
+        return {
+            orderPerson: personName,
+            ingredients: ingredients
+        };
+    };
+}
 
 
 // #12  ###################
@@ -146,3 +180,16 @@ newFunction();
 // If both parameters are the same type an the same value return "Exact match".
 // If both parameters have the same value but are different types return "Different types"
 // Otherwise return "Different values"
+function compareValues(para1,para2) {
+    var typeValue = '';
+    if (typeof (para1) === typeof (para2)) {
+        typeValue = 'Exact match'
+    }
+    else if (para1 == para2) {
+        typeValue = 'Different types'
+    }
+    else {
+        typeValue = 'Different values'
+    }
+return typeValue;
+}
