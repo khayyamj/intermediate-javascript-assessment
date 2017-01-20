@@ -26,19 +26,19 @@
 // Remove entries from the array until only correct answers remain
 
 // Which function(s) access the playball variable and get homerun (Delete wrong answers, leave correct ones)
-var scopeArray1 = ["grandpa", "dad", "son", "uncle", "cousin"];
+var scopeArray1 = ["grandpa", "uncle", "cousin"];
 
 // Which function(s) access the playball variable and get touchdown (Delete wrong answers, leave correct ones)
-var scopeArray2 = ["grandpa", "dad", "son", "uncle", "cousin"];
+var scopeArray2 = ["dad", "son"];
 
 // Which function(s) access the badjoke variable and get undefined (Delete wrong answers, leave correct ones)
-var scopeArray3 = ["grandpa", "dad", "son", "uncle", "cousin"];
+var scopeArray3 = ["grandpa", "dad", "son"];
 
 // Which functions accesss the badjoke variable and get "Har" (Delete wrong answers, leave correct ones)
-var scopeArray4 = ["grandpa", "dad", "son", "uncle", "cousin"];
+var scopeArray4 = ["uncle", "cousin"];
 
 // Which functions access the playnintendo variable and get Mario (Delete wrong answers, leave correct ones)
-var scopeArray5 = ["grandpa", "dad", "son", "uncle", "cousin"];
+var scopeArray5 = ["son"];
 
 
 // #2  ###################
@@ -50,13 +50,22 @@ var foo;
   which changes the variable foo (above) to 'bar'
   And resolve the promise when setTimeout completes.
 */
-
+function async() {
+    var deferred = $q.defer();
+    setTimeout(function () {
+        foo = 'bar';
+        deferred.resolve(foo)
+    }, 10);
+    return deferred.promise;
+}
 
 // #3  ###################
 // # Context 1
 // Write a function called context1 that takes in 4 parameters: A function called myFn, an object called context, param1, and param2.
 // Invoke myFn explicitly setting the context to the object called context.  Pass in param1 and param2 in order as well.
-
+function context1(myFn,context,param1,param2) {
+    return myFn.call(context,param1,param2);
+}
 
 
 
@@ -65,7 +74,9 @@ var foo;
 // Write a function called context2 that takes in 3 parameters: A function called myFn, an object called context, and an array called params
 // Invoke myFn explicitly setting the context to the object called context.  Pass in params
 
-
+function context2(myFn,context,params) {
+    return myFn.apply(context,params);
+}
 
 
 // #5  ###################
@@ -73,7 +84,11 @@ var foo;
 // Write a function called context3 that takes in 2 parameters: A function called myFn, and an object called context
 // Make sure the function is permanently linked to the context.  This should give you a new function, return it.
 
-
+function context3(myFn,context) {
+    var newFunction = myFn.bind(context);
+    return newFunction;
+}
+newFunction();
 
 
 // #6  ###################
